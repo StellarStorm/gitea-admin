@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+**.mypy_cache
+**__pycache__
+*.code-workspace
+
+.env
+*.cfg
+
+*.log
