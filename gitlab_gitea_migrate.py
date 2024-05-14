@@ -105,7 +105,6 @@ if __name__ == '__main__':
         'milestones': True,
         'pull_requests': True,
         'releases': True,
-        'wiki': True,
     }
     imported = 0
     skipped = 0
