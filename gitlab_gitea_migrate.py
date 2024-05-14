@@ -4,6 +4,7 @@ Find GitLab projects & backup as mirrors to Gitea
 
 Copyright (C) 2024 S. Gay
 """
+
 import json
 import logging
 import os
@@ -106,7 +107,9 @@ if __name__ == '__main__':
         'releases': True,
         'wiki': True,
     }
-
+    imported = 0
+    skipped = 0
+    errors = 0
     for repo in repos:
         name = repo.replace('/', '_')
 
@@ -121,9 +124,16 @@ if __name__ == '__main__':
         status = import_repo(url, headers=headers, post_data=post_data)
         if status == 201:
             logger.info(f'Imported {name}')
+            imported += 1
         elif status == 409:
-            logger.info(f'Skipping {name} as it already exists')
+            logger.debug(f'Skipping {name} as it already exists')
+            skipped += 1
         elif status == 422:
             logger.error(f'Issue with the input data for {name}')
+            errors += 1
         else:
             logger.error(f'Code {status} for {name}')
+            errors += 1
+    logger.info(
+        f'There were {imported} repos imported, {skipped} existing and skipped, and {errors} with errors'
+    )
