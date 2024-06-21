@@ -9,6 +9,7 @@ Inspired by
 https://justyn.io/til/delete-all-repos-from-an-organization-in-forgejo-gitea/
 
 """
+
 import json
 import logging
 import os
