@@ -9,6 +9,7 @@ import json
 import logging
 import os
 from io import BytesIO
+from urllib.parse import urlparse
 
 import pycurl
 from dotenv import load_dotenv
@@ -64,7 +65,8 @@ if __name__ == '__main__':
 
     repos = [x.strip() for x in repos]
     for repo in repos:
-        name = repo.split('/')[-1]
+        o = urlparse(repo)
+        name = o.path.split('/')[-1]
 
         data['clone_addr'] = repo
         data['repo_name'] = name

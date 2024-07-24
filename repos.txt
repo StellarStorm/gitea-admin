@@ -320,6 +320,7 @@ https://github.com/open-mmlab/mmcv
 https://github.com/open-telemetry/opentelemetry-python
 https://github.com/openai/triton
 https://github.com/opencv/opencv-python
+https://github.com/openslide/openslide-python
 https://github.com/optuna/optuna
 https://github.com/pallets-eco/blinker
 https://github.com/pallets-eco/flask-sqlalchemy
@@ -509,3 +510,4 @@ https://gitlab.com/takluyver/jeepney
 https://gitlab.gnome.org/GNOME/pygobject
 https://gitlab.kitware.com/vtk/vtk
 https://gitlab.linss.com/open-source/python/uri-template
+https://salsa.debian.org/apt-team/python-apt
