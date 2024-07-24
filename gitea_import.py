@@ -63,6 +63,9 @@ if __name__ == '__main__':
     with open('repos.txt') as f:
         repos = f.readlines()
 
+    imported = 0
+    skipped = 0
+    errors = 0
     repos = [x.strip() for x in repos]
     for repo in repos:
         o = urlparse(repo)
@@ -77,9 +80,16 @@ if __name__ == '__main__':
 
         if status == 201:
             logger.info(f'Imported {name}')
+            imported += 1
         elif status == 409:
             logger.info(f'Skipping {name} as it already exists')
+            skipped += 1
         elif status == 422:
             logger.error(f'Issue with the import data for {name}')
+            errors += 1
         else:
             logger.error(f'Code {status} for {name}')
+            errors += 1
+    logger.info(
+        f'There were {imported} repos imported, {skipped} existing and skipped, and {errors} with errors'
+    )
