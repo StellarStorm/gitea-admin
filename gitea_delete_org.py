@@ -10,6 +10,7 @@ https://justyn.io/til/delete-all-repos-from-an-organization-in-forgejo-gitea/
 
 """
 
+import argparse
 import json
 import logging
 import os
@@ -38,8 +39,6 @@ load_dotenv()
 GITEA_TOKEN = os.getenv('GITEA_ADMIN_TOKEN')
 
 GITEA_DOMAIN = os.getenv('GITEA_DOMAIN')
-# Set to `None` for safety - change to the organization name you want to delete!
-GITEA_ORGANIZATION = None
 
 headers = [
     'accept: application/json',
@@ -106,8 +105,21 @@ def delete(url: str, headers: list) -> int:
 
 
 if __name__ == '__main__':
+    ap = argparse.ArgumentParser(
+        formatter_class=argparse.MetavarTypeHelpFormatter,
+        description='Delete a Gitea Organization',
+        epilog='Copyright (C) 2024 S. Gay',
+    )
+    ap.add_argument(
+        '--org',
+        type=str,
+        required=True,
+        help='Name of Gitea organization to delete',
+    )
+    args = ap.parse_args()
+
     response = search_repos(
-        url=f'{GITEA_DOMAIN}/api/v1/orgs/{GITEA_ORGANIZATION}/repos',
+        url=f'{GITEA_DOMAIN}/api/v1/orgs/{args.org}/repos',
         page=1,
         headers=headers,
         limit=50,
@@ -118,7 +130,7 @@ if __name__ == '__main__':
     page = 2
     while count == 50:
         response = search_repos(
-            url=f'{GITEA_DOMAIN}/api/v1/orgs/{GITEA_ORGANIZATION}/repos',
+            url=f'{GITEA_DOMAIN}/api/v1/orgs/{args.org}/repos',
             page=page,
             headers=headers,
         )
@@ -130,16 +142,16 @@ if __name__ == '__main__':
     logger.info(f'These repositories will be deleted: {repos}')
 
     for repo in repos:
-        url = f'{GITEA_DOMAIN}/api/v1/repos/{GITEA_ORGANIZATION}/{repo}'
+        url = f'{GITEA_DOMAIN}/api/v1/repos/{args.org}/{repo}'
         status = delete(url, headers)
         if status == 204:
             logger.info(f'Deleted {repo}')
         else:
             logger.error(f'{repo} : {status}')
 
-    url = f'{GITEA_DOMAIN}/api/v1/orgs/{GITEA_ORGANIZATION}'
+    url = f'{GITEA_DOMAIN}/api/v1/orgs/{args.org}'
     status = delete(url, headers)
     if status == 204:
-        logger.info(f'Deleted organization {GITEA_ORGANIZATION}')
+        logger.info(f'Deleted organization {args.org}')
     else:
-        logger.error(f'{GITEA_ORGANIZATION} : status')
+        logger.error(f'{args.org} : status')
