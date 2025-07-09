@@ -1,3 +1,14 @@
+[project]
+name = "gitea-admin"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pycurl>=7.45.3",
+    "python-dotenv>=1.0.1",
+    "python-gitlab>=4.13.0",
+]
+
 [tool.black]
 line-length = 80
 skip-string-normalization = true
