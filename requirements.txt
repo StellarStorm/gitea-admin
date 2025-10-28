@@ -6,11 +6,11 @@ charset-normalizer==3.4.0
     # via requests
 idna==3.10
     # via requests
-pycurl==7.45.6
+pycurl==7.45.7
     # via gitea-admin (pyproject.toml)
-python-dotenv==1.1.1
+python-dotenv==1.2.1
     # via gitea-admin (pyproject.toml)
-python-gitlab==6.1.0
+python-gitlab==6.5.0
     # via gitea-admin (pyproject.toml)
 requests==2.32.3
     # via

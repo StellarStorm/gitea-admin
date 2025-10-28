@@ -4,9 +4,9 @@ version = "0.1.0"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "pycurl>=7.45.6",
-    "python-dotenv>=1.1.1",
-    "python-gitlab>=6.1.0",
+    "pycurl>=7.45.7",
+    "python-dotenv>=1.2.1",
+    "python-gitlab>=6.5.0",
 ]
 
 [tool.black]
